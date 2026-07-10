@@ -281,7 +281,7 @@ with st.container(border=True):
     with col2:
         living_area = st.number_input("Living Area (m²) *", min_value=50, max_value=1000, value=None, placeholder="e.g. 150")
         province = st.selectbox("Province *", [
-            "Select", "Brussels Capital Region", "Flanders", "Liège", "Antwerp",
+            "Select", "Brussels Capital Region", "Liège", "Antwerp",
             "East Flanders", "West Flanders", "Hainaut", "Namur",
             "Limburg", "Walloon Brabant", "Flemish Brabant", "Luxembourg"
         ])
@@ -307,9 +307,9 @@ with st.expander("➕ Add more details for a more accurate estimate"):
         has_elevator = st.checkbox("Has Elevator")
 
     with col4:
-        state_of_building = st.selectbox("State of Building", [None, "Excellent", "Good", "To renovate", "To restore"])
-        epc_score = st.selectbox("EPC Score", [None, "A", "B", "C", "D", "E", "F", "G"])
-        kitchen_equipped = st.selectbox("Kitchen", [None, "Not installed", "USA not installed", "Installed", "Fully equipped"])
+        state_of_building = st.selectbox("State of Building", [None, "New", "Fully renovated", "Excellent", "Good", "Normal", "To renovate", "To restore", "To demolish"])
+        epc_score = st.selectbox("EPC Score", [None, "A++", "A+", "A", "B+", "B", "C", "D", "E", "E+", "F", "G"])
+        kitchen_equipped = st.selectbox("Kitchen", [None, "Not equipped", "Partially equipped", "Fully equipped", "Super equipped"])
         building_year = st.number_input("Building Year", min_value=1800, max_value=2026, value=None, placeholder="e.g. 2000")
 
         knows_coordinates = st.checkbox("Location matters — Add exact coordinates here")

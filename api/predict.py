@@ -56,7 +56,7 @@ if __name__ == "__main__":
             "property_type": "House", "province": "Flanders",
             "state_of_the_building": "Excellent", "epc_score": "A",
             "has_elevator": 0, "parking_count": 2, "garden_area_m2": 100,
-            "is_nearby_city_prestigious": 1,"kitchen_equipped":"fully quipped",
+            "is_nearby_city_prestigious": 1,"kitchen_equipped":"Fully equipped",
             "building_year":2025,
         }
        
