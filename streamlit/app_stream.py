@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 from PIL import Image
+import os
 
 st.set_page_config(page_title="Real Estate Price Predictor", page_icon="🏠", layout="centered")
 
@@ -179,13 +180,15 @@ st.markdown(f"""
 
     /* Result panel */
     .price-result {{
-        background: {COLOR_PRIMARY};
+        background: {COLOR_ACCENT};
         padding: 2rem;
         border-radius: 6px;
         text-align: center;
         margin-top: 1.5rem;
-        border-left: 4px solid {COLOR_ACCENT};
+        border-left: 4px solid {COLOR_PRIMARY};
     }}
+
+    
     .price-result p {{
         color: rgba(255,255,255,0.75);
         margin: 0;
@@ -200,6 +203,29 @@ st.markdown(f"""
         margin: 0.3rem 0 0 0;
     }}
 
+    .price-secondary {{
+    background: {COLOR_CARD};
+    border: 1px solid {COLOR_ACCENT};
+    border-top: 3px solid {COLOR_ACCENT};
+    border-radius: 6px;
+    padding: 1rem;
+    text-align: center;
+    margin-top: 1rem;
+    }}
+    .price-secondary p {{
+    color: {COLOR_MUTED};
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.75rem;
+    }}
+    .price-secondary h3 {{
+    font-family: 'Libre Baskerville', serif;
+    color: {COLOR_PRIMARY};
+    font-size: 1.5rem;
+    margin: 0.25rem 0 0 0;
+    }}
+
     footer {{visibility: hidden;}}
     .footer-note {{
         text-align: center;
@@ -207,11 +233,13 @@ st.markdown(f"""
         font-size: 0.8rem;
         margin-top: 2rem;
     }}
+
 </style>
 """, unsafe_allow_html=True)
 
 # --- Sidebar ---
-image_sidebar = Image.open('assets/housepic.jpg')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+image_sidebar = Image.open(os.path.join(BASE_DIR, 'assets', 'housepic.jpg'))
 st.sidebar.image(image_sidebar, width=300)
 with st.sidebar:
     st.markdown("### About")
@@ -231,7 +259,7 @@ with st.sidebar:
     st.caption("Built as part of the Immo Eliza deployment project.")
 
 # --- Header ---
-image_banner = Image.open('assets/banner.jpg')
+image_banner = Image.open(os.path.join(BASE_DIR, 'assets', 'banner_1.png'))
 st.image(image_banner, width=900)
 
 st.markdown("""
@@ -284,7 +312,7 @@ with st.expander("➕ Add more details for a more accurate estimate"):
         kitchen_equipped = st.selectbox("Kitchen", [None, "Not installed", "USA not installed", "Installed", "Fully equipped"])
         building_year = st.number_input("Building Year", min_value=1800, max_value=2026, value=None, placeholder="e.g. 2000")
 
-        knows_coordinates = st.checkbox("I know the exact latitude & longitude")
+        knows_coordinates = st.checkbox("Location matters — Add exact coordinates here")
         if knows_coordinates:
             st.caption(
                 "Look it up on [latlong.net](https://www.latlong.net/) — "
@@ -364,7 +392,12 @@ if st.button("Predict Price"):
                     </div>
                     """, unsafe_allow_html=True)
 
-                    st.metric("Price per m²", f"€{price_per_m2:,.0f}")
+                    st.markdown(f"""
+                    <div class="price-secondary">
+                    <p>Price per m²</p>
+                    <h3>€{price_per_m2:,.0f}</h3>
+                    </div>
+                    """, unsafe_allow_html=True)
 
                 else:
                     st.error("The API couldn't generate a prediction. Please check your inputs.")
